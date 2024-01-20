@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Stopwatch from "./stopwatch/StopWatch";
 import eggAnimation from "../../../public/image/egg-animation.gif";
 import Image from "next/image";
+import AlertPlayer from "./alert/AlertPlayer";
 
 const EggMe = () => {
   const [activeEgg, setActiveEgg] = useState("Soft");
@@ -27,8 +28,8 @@ const EggMe = () => {
         >
           HardEgg
         </button>
-        {activeEgg == "Soft" && <Stopwatch eggType="Soft" stopTime={300} />}
-        {activeEgg == "Hard" && <Stopwatch eggType="Medium" stopTime={540} />}
+        {activeEgg == "Soft" && <Stopwatch eggType="Soft" stopTime={15} />}
+        {activeEgg == "Hard" && <Stopwatch eggType="Medium" stopTime={20} />}
       </div>
     </div>
   );

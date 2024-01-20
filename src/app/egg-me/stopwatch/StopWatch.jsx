@@ -1,25 +1,15 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import {
+  CountdownCircleTimer,
+  useCountdown,
+} from "react-countdown-circle-timer";
+import AlertPlayer from "../alert/AlertPlayer";
 
 const Stopwatch = ({ eggType, stopTime }) => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [key, setKey] = useState(0);
-
-  useEffect(() => {
-    let intervalId;
-    if (isRunning && time < stopTime * 100) {
-      intervalId = setInterval(() => setTime(time + 1), 10);
-    } else if (time >= stopTime * 100) {
-      setIsRunning(false);
-    }
-    return () => clearInterval(intervalId);
-  }, [isRunning, time, stopTime]);
-
-  const minutes = Math.floor((time % 360000) / 6000);
-  const seconds = Math.floor((time % 6000) / 100);
-  const milliseconds = time % 100;
 
   const startAndStop = () => {
     setIsRunning(!isRunning);
@@ -29,13 +19,10 @@ const Stopwatch = ({ eggType, stopTime }) => {
     setKey((prevKey) => prevKey + 1);
     setIsRunning(false);
     setTime(0);
+    setAnnounceAlert(false);
   };
 
-  useEffect(() => {
-    if (seconds === stopTime) {
-      setIsRunning(false);
-    }
-  }, [seconds, stopTime]);
+  const [announceAlert, setAnnounceAlert] = useState(false);
 
   return (
     <div>
@@ -47,6 +34,11 @@ const Stopwatch = ({ eggType, stopTime }) => {
         duration={stopTime}
         colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
         colorsTime={[7, 5, 2, 0]}
+        onUpdate={(remainingTime) => {
+          if (isRunning && remainingTime <= 10) {
+            setAnnounceAlert(true);
+          }
+        }}
       >
         {({ remainingTime }) => remainingTime}
       </CountdownCircleTimer>
@@ -62,6 +54,7 @@ const Stopwatch = ({ eggType, stopTime }) => {
       >
         Reset
       </button>
+      <AlertPlayer isRunning={isRunning} announceAlert={announceAlert} />
     </div>
   );
 };
