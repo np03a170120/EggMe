@@ -12,6 +12,10 @@ const EggMe = () => {
     return setTotalSec(min * 60 + parseInt(sec));
   };
 
+  useEffect(() => {
+    converMinToSec();
+  }, [sec, min]);
+
   return (
     <div className="h-[100vh] flex items-center justify-center">
       <div className="">
@@ -33,31 +37,32 @@ const EggMe = () => {
         >
           Custom
         </button>
-        {activeEgg == "Soft" && <Stopwatch eggType="Soft" stopTime={15} />}
-        {activeEgg == "Hard" && <Stopwatch eggType="Medium" stopTime={20} />}
-        {activeEgg == "Custom" && (
-          <Stopwatch eggType="Custom" stopTime={totalSec} />
-        )}
         {activeEgg == "Custom" && (
           <>
             <form onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="min">Min</label>
               <input
+                min={0}
+                value={min}
                 onChange={(e) => setMin(e.target.value)}
                 className="border"
                 type="number"
               />
               <label htmlFor="sec">Second</label>
               <input
+                min={0}
+                value={sec}
                 onChange={(e) => setSec(e.target.value)}
                 className="border"
                 type="number"
               />
-              <button className="" onClick={converMinToSec}>
-                okay
-              </button>
             </form>
           </>
+        )}
+        {activeEgg === "Soft" && <Stopwatch eggType="Soft" stopTime={15} />}
+        {activeEgg === "Hard" && <Stopwatch eggType="Medium" stopTime={20} />}
+        {activeEgg === "Custom" && (
+          <Stopwatch eggType="Custom" stopTime={totalSec} />
         )}
       </div>
     </div>
