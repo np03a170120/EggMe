@@ -1,9 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Stopwatch from "./stopwatch/StopWatch";
-import eggAnimation from "../../../public/image/egg-animation.gif";
-import Image from "next/image";
-import AlertPlayer from "./alert/AlertPlayer";
 
 const EggMe = () => {
   const [activeEgg, setActiveEgg] = useState("Soft");
@@ -11,11 +8,6 @@ const EggMe = () => {
   return (
     <div className="h-[100vh] flex items-center justify-center">
       <div className="">
-        <Image
-          className="text-center  w-full"
-          src={eggAnimation}
-          alt="Picture of the egg loading"
-        />
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={() => setActiveEgg("Soft")}
@@ -30,6 +22,10 @@ const EggMe = () => {
         </button>
         {activeEgg == "Soft" && <Stopwatch eggType="Soft" stopTime={15} />}
         {activeEgg == "Hard" && <Stopwatch eggType="Medium" stopTime={20} />}
+        <form>
+          <input className="border" type="number" />
+          <button className="">okay</button>
+        </form>
       </div>
     </div>
   );

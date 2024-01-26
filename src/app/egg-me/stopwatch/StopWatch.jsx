@@ -32,7 +32,7 @@ const Stopwatch = ({ eggType, stopTime }) => {
         key={key}
         isPlaying={isRunning}
         duration={stopTime}
-        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+        colors={["#000000", "#F7B801", "#A30000", "#A30000"]}
         colorsTime={[7, 5, 2, 0]}
         onUpdate={(remainingTime) => {
           if (isRunning && remainingTime <= 10) {
